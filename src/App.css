@@ -44,4 +44,30 @@
 .product-card{
   display: flex;
   flex-direction: column;
+  width: 300px;
+  border: 2px solid rgb(63, 63, 63);
+  padding: 4px;
+  border-radius: 25px;
+}
+
+.card-container{
+  padding: 12px;
+}
+
+.product-description{
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.card-button{
+  padding: 8px;
+  margin: 8px;
+  background-color: rgb(0, 0, 0);
+  color: white;
 }

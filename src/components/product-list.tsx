@@ -4,21 +4,23 @@ import { ProductCard } from "./product-card"
 
 export interface ListProps{
     children: ReactNode,
-    products: Product[]
+    products: Product[],
 }
 
 export function ProductList(props:ListProps){
-    return  <>
-        <div>
-            <ul>
-                {props.products.map(product=>(
-                    <li>
-                        <ProductCard 
-                        product={product}/>
+    return  (
+    <div>
+        <div >
+            {props.products.map(product=>(
+                <div className="card-container" key={product.id}>
+                    <ProductCard 
+                    product={product}/>
 
-                    </li>                   
-                ))}
-            </ul>
+                </div>                   
+            ))}
+            
         </div>
-    </>
+
+    </div>
+    )
 }

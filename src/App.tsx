@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './App.css'
 import products from '../store/products.json'
 import { ProductList } from './components/product-list';
+import { CartButton } from './components/cart-button';
 
 console.log(products);
 
@@ -15,6 +16,8 @@ function App() {
 
   return (
     <>
+      <CartButton/>
+        
       <ProductList
       products={products}
       >

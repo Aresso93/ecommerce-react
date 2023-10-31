@@ -7,14 +7,17 @@ export interface ProductCardProps{
 export function ProductCard(props:ProductCardProps){
    
       return (
-        <div className="product-card">
-            <h2>{props.product.title}</h2>
-            <span>Marca: {props.product.brand}</span>
-            <span>{props.product.description}</span>
-            <span>Attualmente scontato del {props.product.discountPercentage}%</span>
-            <span>Tipo di prodotto: {props.product.category}</span>
-            <span>Ancora {props.product.stock} a disposizione!</span>
+        <div className="product-card" >
+            <h3>{props.product.title}</h3>
+            <span>Brand: {props.product.brand}</span>
+            <div className="product-description">
+                {props.product.description}
+            </div>
+            <span>Only {props.product.price} gold pieces ({props.product.discountPercentage}% discount)!</span>
+            <span>Product type: {props.product.category}</span>
+            <span>Only {props.product.stock} left!</span>
             <img src={props.product.thumbnail} alt={props.product.title} />
+            <button className="card-button">+ add to cart</button>
         </div>
       )
    
