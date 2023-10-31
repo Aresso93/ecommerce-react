@@ -17,7 +17,13 @@ export function ProductCard(props:ProductCardProps){
             <span>Product type: {props.product.category}</span>
             <span>Only {props.product.stock} left!</span>
             <img src={props.product.thumbnail} alt={props.product.title} />
-            <button className="card-button">+ add to cart</button>
+            <button 
+            className="card-button"
+            onClick={()=>
+            console.log(props.product.id)}
+            >
+                + add to cart
+            </button>
         </div>
       )
    
