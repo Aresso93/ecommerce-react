@@ -3,7 +3,7 @@ import products from '../store/products.json'
 import { ProductList } from './components/product-list';
 import { CartButton } from './components/cart-button';
 import { Product } from './model/product';
-
+import { CartContext } from './contexts/cartContext';
 
 const cartItems: Product[] = []
 
@@ -11,13 +11,15 @@ function App() {
 
   return (
     <>
+    <CartContext.Provider value={cartItems}>
+
       <CartButton
-      cartItems={cartItems}
       /> 
       <ProductList
       products={products}
-      >
-      </ProductList>
+      />
+     
+    </CartContext.Provider>
     </>
   )
 }

@@ -10,14 +10,6 @@ export function useCartActions(){
         setCart(newCart);
     }
 
-    // function addToCart(product: Product){
-    //     const found = cartItems.find(item => item.id === product.id);
-    //     if (!found) {
-    //       cartItems.push(product)
-    //     }
-    //   }
-
-
       return {
         actions:
         {
