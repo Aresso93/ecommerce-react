@@ -13,12 +13,10 @@ function App() {
     <>
       <CartButton
       cartItems={cartItems}
-      
       /> 
       <ProductList
       products={products}
       >
-
       </ProductList>
     </>
   )
