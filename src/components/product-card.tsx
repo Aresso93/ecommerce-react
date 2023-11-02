@@ -30,7 +30,7 @@ export function ProductCard(props:ProductCardProps){
             <button 
             className="card-button"
             onClick={()=>{
-
+                //removeFromCart(props.product.id)
             }}
             >
                 - remove from cart
