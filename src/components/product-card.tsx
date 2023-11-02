@@ -2,6 +2,7 @@ import { Product } from "../model/product"
 
 export interface ProductCardProps{
     product: Product,
+    addToCart: VoidFunction
 }
 
 export function ProductCard(props:ProductCardProps){
@@ -19,8 +20,10 @@ export function ProductCard(props:ProductCardProps){
             <img src={props.product.thumbnail} alt={props.product.title} />
             <button 
             className="card-button"
-            onClick={()=>
-            console.log(props.product.id)}
+            onClick={()=>{
+                console.log(props.product.id)
+                props.addToCart
+            }}
             >
                 + add to cart
             </button>

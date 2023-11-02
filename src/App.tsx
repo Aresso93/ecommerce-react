@@ -1,31 +1,20 @@
-import { useState } from 'react';
 import './App.css'
 import products from '../store/products.json'
 import { ProductList } from './components/product-list';
 import { CartButton } from './components/cart-button';
-import IconButton from '@mui/material/IconButton';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import { Product } from './model/product';
 
 
-console.log(products);
-
-const productsArray = products
+const cartItems: Product[] = []
 
 function App() {
 
   return (
     <>
-     <IconButton 
-     color="primary" 
-     aria-label="see shopping cart"
-     onClick={() => 
-      console.log('AAAA')
-
-    }
-     >
-        <AddShoppingCartIcon />
-    </IconButton>
-        
+      <CartButton
+      cartItems={cartItems}
+      
+      /> 
       <ProductList
       products={products}
       >
