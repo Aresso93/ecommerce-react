@@ -21,10 +21,19 @@ export function ProductCard(props:ProductCardProps){
             <button 
             className="card-button"
             onClick={()=>{
-                cartContext.push(props.product)
+                cartContext.setCartItems([...cartContext.cartItems, props.product])
+                //idealmente vorrei addToCart(props.product)
             }}
             >
                 + add to cart
+            </button>
+            <button 
+            className="card-button"
+            onClick={()=>{
+
+            }}
+            >
+                - remove from cart
             </button>
         </div>
       )
