@@ -55,8 +55,16 @@
 .card-container{
   display: flex;
   padding: 12px;
+  align-self: center;
+  width: 40%;
+}
+
+.outer-container{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
   
-  width: 32%;
 }
 
 .product-description{
@@ -86,15 +94,21 @@ ul {
   width: 25%;
 }
 
-.outer-container{
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  justify-content: center;
-  
-}
-
 .cart-controls-container{
   display: flex;
   justify-content: center;
+}
+
+.cart-quantity{
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 4px;
+}
+
+.remove-btn-container{
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  align-self: center;
 }

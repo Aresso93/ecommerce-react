@@ -8,9 +8,10 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useCartContext } from '../contexts/cartContext';
+import { useCart } from '../hooks/useCart';
 
   export function CartButton() {
-    
+      const cartActions = useCart()
       const cartContext = useCartContext()
       const [open, setOpen] = React.useState(false);
 
@@ -63,7 +64,14 @@ import { useCartContext } from '../contexts/cartContext';
             <div className='cart'>
                 {cartContext.cartItems.map(product=>(
                     <div className='cart-content' key={product.id}>
-                        <h3>{product.title}</h3>
+                        <div className='cart-quantity'>
+                            <h3>{product.title}</h3>
+                            <div className='remove-btn-container'>
+                                <button
+                                onClick={() => cartActions.removeFromCart(product.id)}
+                                >Remove item</button>
+                            </div>
+                        </div>
                         <img src={product.thumbnail} alt={product.title} />
                         <br />
                         <span>Price: {product.price}</span>
