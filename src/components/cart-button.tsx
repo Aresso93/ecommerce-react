@@ -66,7 +66,7 @@ import { useCart } from '../hooks/useCart';
                             <h3>{product.title}</h3>
                             <div className='remove-btn-container'>
                                 <button
-                                onClick={() => cartActions.removeFromCart(product.id)}
+                                onClick={() => cartActions.actions.removeFromCart(product.id)}
                                 >Remove item</button>
                             </div>
                         </div>
