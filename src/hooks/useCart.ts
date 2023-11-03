@@ -23,7 +23,6 @@ function cartReducer(state, action){
             }
         }
     }
-    
 }
 
 export function useCart() {
@@ -56,9 +55,12 @@ export function useCart() {
     }
 
     return {
-        addToCart,
-        removeFromCart,
-        increaseQuantity,
-        decreaseQuantity
+        actions:{
+            addToCart,
+            removeFromCart,
+            increaseQuantity,
+            decreaseQuantity,
+        },
+        state
     }
 }

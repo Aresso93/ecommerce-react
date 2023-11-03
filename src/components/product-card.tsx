@@ -7,7 +7,7 @@ export interface ProductCardProps{
 }
 
 export function ProductCard(props:ProductCardProps){
-    const cartContext = useCartContext();
+    //const cartContext = useCartContext();
     const cartActions = useCart()
       return (
         <div className="product-card" >
@@ -23,8 +23,8 @@ export function ProductCard(props:ProductCardProps){
             <button 
             className="card-button"
             onClick={()=>{
-                cartContext.setCartItems([...cartContext.cartItems, props.product])
-                //cartActions.addToCart(props.product)
+                //cartContext.setCartItems([...cartContext.cartItems, props.product])
+                cartActions.addToCart(props.product)
             }}
             >
                 + add to cart

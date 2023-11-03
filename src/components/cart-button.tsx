@@ -31,8 +31,6 @@ import { useCart } from '../hooks/useCart';
             }
         }, [open]);
 
-        //permettere di modificare quantità e togliere l'oggetto
-
       return (
         <div className='cart-controls-container'>
             <div className='cart-controls'>
