@@ -9,12 +9,14 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useCartContext } from '../contexts/cartContext';
 import { useCart } from '../hooks/useCart';
+import { CartItem } from '../model/product';
 
   export function CartButton() {
       const cartState = useCart()
       const cartContext = useCartContext()
       const [open, setOpen] = React.useState(false);
 
+      
       const handleClickOpen = () => {
           setOpen(true);
         };
@@ -31,10 +33,24 @@ import { useCart } from '../hooks/useCart';
             }
         }, [open]);
 
+        const calculateTotalItems = (cart:CartItem[]) => {
+            const qtyArray = []
+            for (let i = 0; i < cart.length; i++) {
+                const cartItem = cart[i];
+                qtyArray.push(cartItem.qty);
+            }
+            const initialValue = 0;
+            const fullCart = qtyArray.reduce(
+                (accumulator, currentValue) => accumulator + currentValue,
+                initialValue
+              );
+            return fullCart
+        }
+
       return (
         <div className='cart-controls-container'>
             <div className='cart-controls'>
-            Open your cart ({cartContext.cart.length} total products in cart)
+            Open your cart ({calculateTotalItems(cartContext.cart)} total products in cart)
             <IconButton 
                 color="primary" 
                 aria-label="add to shopping cart"
@@ -81,6 +97,7 @@ import { useCart } from '../hooks/useCart';
                                     cartContext.actions.increaseQuantity
                                 }}
                                 >+</button>
+                                
                             </div>
                         </div>
                         <img src={cartItem.product.thumbnail} alt={cartItem.product.title} />
