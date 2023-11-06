@@ -11,7 +11,7 @@ import { useCartContext } from '../contexts/cartContext';
 import { useCart } from '../hooks/useCart';
 
   export function CartButton() {
-      const cartActions = useCart()
+      const cartState = useCart()
       const cartContext = useCartContext()
       const [open, setOpen] = React.useState(false);
 
@@ -68,6 +68,21 @@ import { useCart } from '../hooks/useCart';
                                 <button
                                 onClick={() => cartContext.actions.removeFromCart(product.id)}
                                 >Remove item</button>
+                            </div>
+                            <div className='quantity-container'>
+                                <button
+                                onClick={()=> {
+                                    cartContext.actions.decreaseQuantity
+                                    console.log('-')
+                                }}
+                                >-</button>
+                                <div>0</div>
+                                <button
+                                onClick={()=> {
+                                    cartContext.actions.increaseQuantity
+                                    console.log('+')
+                                }}
+                                >+</button>
                             </div>
                         </div>
                         <img src={product.thumbnail} alt={product.title} />

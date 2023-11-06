@@ -13,12 +13,13 @@ type State = Product[]
 type CartAction = 
 {type: CartActionType.addToCart; product: Product}
 | {type: CartActionType.removeFromCart; productId: number}
-| {type: CartActionType.increaseQuantity}
-| {type: CartActionType.decreaseQuantity}
+| {type: CartActionType.increaseQuantity, productQuantity: number}
+| {type: CartActionType.decreaseQuantity, productQuantity: number}
 
 function cartReducer(cart: State, action: CartAction):State{
     switch(action.type){
         case CartActionType.addToCart: {
+            
             return [...cart, action.product]
         };
         case CartActionType.removeFromCart: {
@@ -26,14 +27,12 @@ function cartReducer(cart: State, action: CartAction):State{
             return filteredCart;
         };
         case CartActionType.increaseQuantity:{
-            return{
-
-            }
+            const newQuantity = action.productQuantity+1
+            return newQuantity
         };
         case CartActionType.decreaseQuantity:{
-            return{
-
-            }
+            const newQuantity = action.productQuantity+1
+            return newQuantity
         }
 
         default: return cart
@@ -73,12 +72,18 @@ export function useCart(): CartState {
         });
     }
 
-    const increaseQuantity = () => {
-        dispatch({type: CartActionType.increaseQuantity})
+    const increaseQuantity = (productQuantity:number) => {
+        dispatch({
+            type: CartActionType.increaseQuantity,
+            productQuantity
+        })
     }
 
-    const decreaseQuantity = () => {
-        dispatch({type: CartActionType.decreaseQuantity})
+    const decreaseQuantity = (productQuantity:number) => {
+        dispatch({
+            type: CartActionType.decreaseQuantity,
+            productQuantity
+        })
     }
 
     return {
