@@ -60,13 +60,13 @@ import { useCart } from '../hooks/useCart';
           </DialogContentText>
           {
             <div className='cart'>
-                {cartContext.cart.map(product=>(
-                    <div className='cart-content' key={product.id}>
+                {cartContext.cart.map(cartItem=>(
+                    <div className='cart-content' key={cartItem.id}>
                         <div className='cart-quantity'>
-                            <h3>{product.title}</h3>
+                            <h3>{cartItem.product.title}</h3>
                             <div className='remove-btn-container'>
                                 <button
-                                onClick={() => cartContext.actions.removeFromCart(product.id)}
+                                onClick={() => cartContext.actions.removeFromCart(cartItem.product.id)}
                                 >Remove item</button>
                             </div>
                             <div className='quantity-container'>
@@ -76,7 +76,7 @@ import { useCart } from '../hooks/useCart';
                                     console.log('-')
                                 }}
                                 >-</button>
-                                <div>0</div>
+                                <div>{cartItem.qty}</div>
                                 <button
                                 onClick={()=> {
                                     cartContext.actions.increaseQuantity
@@ -85,9 +85,9 @@ import { useCart } from '../hooks/useCart';
                                 >+</button>
                             </div>
                         </div>
-                        <img src={product.thumbnail} alt={product.title} />
+                        <img src={cartItem.product.thumbnail} alt={cartItem.product.title} />
                         <br />
-                        <span>Price: {product.price}</span>
+                        <span>Price: {cartItem.product.price}</span>
                     </div>
                 ))}
             </div>

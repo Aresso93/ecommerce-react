@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import { Product } from "../model/product";
+import { CartItem, Product } from "../model/product";
 
 enum CartActionType{
     addToCart,
@@ -8,7 +8,7 @@ enum CartActionType{
     decreaseQuantity
 }
 
-type State = Product[]
+type State = CartItem[]
 
 type CartAction = 
 {type: CartActionType.addToCart; product: Product}
@@ -19,16 +19,27 @@ type CartAction =
 function cartReducer(cart: State, action: CartAction):State{
     switch(action.type){
         case CartActionType.addToCart: {
-            
-            return [...cart, action.product]
+            const newCartItem = {qty: 1, product: action.product}
+            const foundItem = cart.find((cartItem) => cartItem.product.id === action.product.id);
+            if (foundItem){
+                return cart.map((cartItem)=> {
+                    if(cartItem.product.id === action.product.id){
+                        cartItem.qty = cartItem.qty+1
+                        return cartItem
+                    }
+                    return cartItem
+                })
+            }
+            return [...cart, newCartItem]
         };
         case CartActionType.removeFromCart: {
-            const filteredCart = cart.filter((product: Product) => product.id !== action.productId);
+            const filteredCart = cart.filter((cartItem: CartItem) => cartItem.product.id !== action.productId);
+            console.log(action.productId);
             return filteredCart;
         };
         case CartActionType.increaseQuantity:{
             const newQuantity = action.productQuantity+1
-            return newQuantity
+            return [...cart, {id: action.product.id, qty: newQuantity, product: action.product}]
         };
         case CartActionType.decreaseQuantity:{
             const newQuantity = action.productQuantity+1
@@ -63,6 +74,7 @@ export function useCart(): CartState {
         type: CartActionType.addToCart,
         product: product,
         })
+        console.log(cart)
     }
 
     const removeFromCart = (productId:number) => {
