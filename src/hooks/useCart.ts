@@ -25,8 +25,10 @@ function cartReducer(cart: State, action: CartAction):State{
                 return cart.map((cartItem)=> {
                     if(cartItem.product.id === action.product.id){
                         cartItem.qty = cartItem.qty+1
+                        console.log(cartItem)
                         return cartItem
                     }
+                    
                     return cartItem
                 })
             }
@@ -37,9 +39,14 @@ function cartReducer(cart: State, action: CartAction):State{
             console.log(action.productId);
             return filteredCart;
         };
-        case CartActionType.increaseQuantity:{
-            const newQuantity = action.productQuantity+1
-            return [...cart, {id: action.product.id, qty: newQuantity, product: action.product}]
+        case CartActionType.increaseQuantity:{  
+            return cart.map((cartItem)=> {
+                cartItem.qty = cartItem.qty+1
+                console.log('AAAAAAAA', cartItem);
+                return cartItem
+         
+        })
+            
         };
         case CartActionType.decreaseQuantity:{
             const newQuantity = action.productQuantity+1
@@ -74,7 +81,7 @@ export function useCart(): CartState {
         type: CartActionType.addToCart,
         product: product,
         })
-        console.log(cart)
+        
     }
 
     const removeFromCart = (productId:number) => {
