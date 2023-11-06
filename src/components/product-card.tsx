@@ -1,5 +1,4 @@
 import { useCartContext } from "../contexts/cartContext";
-import { useCart } from "../hooks/useCart";
 import { Product } from "../model/product"
 
 export interface ProductCardProps{
@@ -7,8 +6,7 @@ export interface ProductCardProps{
 }
 
 export function ProductCard(props:ProductCardProps){
-    //const cartContext = useCartContext();
-    const cartActions = useCart()
+    const cartContext = useCartContext();
       return (
         <div className="product-card" >
             <h3>{props.product.title}</h3>
@@ -23,8 +21,7 @@ export function ProductCard(props:ProductCardProps){
             <button 
             className="card-button"
             onClick={()=>{
-                //cartContext.setCartItems([...cartContext.cartItems, props.product])
-                cartActions.actions.addToCart(props.product)
+                cartContext.actions.addToCart(props.product)
             }}
             >
                 + add to cart

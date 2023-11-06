@@ -1,61 +1,84 @@
 import { useReducer } from "react";
 import { Product } from "../model/product";
 
-function cartReducer(state, action){
+enum CartActionType{
+    addToCart,
+    removeFromCart,
+    increaseQuantity,
+    decreaseQuantity
+}
+
+type State = Product[]
+
+type CartAction = 
+{type: CartActionType.addToCart; product: Product}
+| {type: CartActionType.removeFromCart; productId: number}
+| {type: CartActionType.increaseQuantity}
+| {type: CartActionType.decreaseQuantity}
+
+function cartReducer(cart: State, action: CartAction):State{
     switch(action.type){
-        case 'add_to_cart': {
-            return{
-                ...state,
-                cart: [
-                    ...state.cart,
-                    {product: action.product}
-                ]
-            }
+        case CartActionType.addToCart: {
+            return [...cart, action.product]
         };
-        case 'remove_from_cart': {
-            state.cart.filter((product: Product) => product.id !== action.id);
-            return state;
+        case CartActionType.removeFromCart: {
+            const filteredCart = cart.filter((product: Product) => product.id !== action.productId);
+            return filteredCart;
         };
-        case 'increase_item_quantity':{
+        case CartActionType.increaseQuantity:{
             return{
 
             }
         };
-        case 'decrease_item_quantity':{
+        case CartActionType.decreaseQuantity:{
             return{
 
             }
         }
+
+        default: return cart
     }
 }
 
-export function useCart() {
+const initialState: State = []
+
+export type CartState = {
+    actions: {
+        addToCart: (product: Product) => void;
+        removeFromCart: (productId: number) => void;
+        increaseQuantity: () => void;
+        decreaseQuantity: () => void;
+    };
+    cart: State;
+}
+
+export function useCart(): CartState {
     
-    const [state, dispatch] = useReducer(
+    const [cart, dispatch] = useReducer(
         cartReducer, 
-        {cart: []}
+        initialState
     );
 
     const addToCart = (product:Product) => {
         dispatch({
-        type: 'add_to_cart',
+        type: CartActionType.addToCart,
         product: product,
         })
     }
 
     const removeFromCart = (productId:number) => {
         dispatch({
-            type: 'remove_from_cart',
-            productId
+            type: CartActionType.removeFromCart,
+            productId,
         });
     }
 
     const increaseQuantity = () => {
-        dispatch({type: 'increase_item_quantity'})
+        dispatch({type: CartActionType.increaseQuantity})
     }
 
     const decreaseQuantity = () => {
-        dispatch({type: 'decrease_item_quantity'})
+        dispatch({type: CartActionType.decreaseQuantity})
     }
 
     return {
@@ -65,6 +88,6 @@ export function useCart() {
             increaseQuantity,
             decreaseQuantity,
         },
-        state
+        cart
     }
 }

@@ -34,7 +34,7 @@ import { useCart } from '../hooks/useCart';
       return (
         <div className='cart-controls-container'>
             <div className='cart-controls'>
-            Open your cart ({cartContext.cartItems.length} products in cart)
+            Open your cart ({cartContext.cart.length} products in cart)
             <IconButton 
                 color="primary" 
                 aria-label="add to shopping cart"
@@ -60,13 +60,13 @@ import { useCart } from '../hooks/useCart';
           </DialogContentText>
           {
             <div className='cart'>
-                {cartContext.cartItems.map(product=>(
+                {cartContext.cart.map(product=>(
                     <div className='cart-content' key={product.id}>
                         <div className='cart-quantity'>
                             <h3>{product.title}</h3>
                             <div className='remove-btn-container'>
                                 <button
-                                onClick={() => cartActions.actions.removeFromCart(product.id)}
+                                onClick={() => cartContext.actions.removeFromCart(product.id)}
                                 >Remove item</button>
                             </div>
                         </div>
