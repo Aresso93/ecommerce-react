@@ -34,7 +34,7 @@ import { useCart } from '../hooks/useCart';
       return (
         <div className='cart-controls-container'>
             <div className='cart-controls'>
-            Open your cart ({cartContext.cart.length} different products in cart)
+            Open your cart ({cartContext.cart.length} total products in cart)
             <IconButton 
                 color="primary" 
                 aria-label="add to shopping cart"
