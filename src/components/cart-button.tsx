@@ -77,18 +77,23 @@ export function CartButton() {
           <div className="close-btn-container">
             <Button onClick={handleClose}>X</Button>
           </div>
-          <DialogTitle id="scroll-dialog-title">Your cart</DialogTitle>
+          <DialogTitle id="scroll-dialog-title">Your cart {!cartContext.cart.length && 'is currently empty'}</DialogTitle>
           <DialogContent>
             <DialogContentText
               id="scroll-dialog-description"
               ref={descriptionElementRef}
               tabIndex={-1}
             >
-              <span>
+                {!!cartContext.cart.length &&
+                <>
+                
+                <span>
                 Grand total: {calculateTotalPrice(cartContext.cart)} gold coins
-              </span>
-              <br />
-              These are the products you currently have in your cart:
+                </span>
+                <br />
+                These are the products you currently have in your cart:
+                </>
+                }
             </DialogContentText>
             {
               <div className="cart">
@@ -161,7 +166,7 @@ export function CartButton() {
                 Checkout
                 </button>
                 :
-                <span>Your cart is currently empty</span>
+                <span>Check out our store for some really cool products!</span>
                     }
 
                 </div>
