@@ -3,10 +3,6 @@
   text-align: center;
 }
 
-html,body{
-  box-sizing: border-box;
-}
-
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -137,4 +133,17 @@ ul {
 
 h2{
   padding: 0px;
+}
+
+.header-container{
+  width: 100%;
+  padding-bottom: 100px;
+}
+
+html,body{
+  box-sizing: border-box;
+}
+
+.cart-content{
+  background-color: antiquewhite;
 }

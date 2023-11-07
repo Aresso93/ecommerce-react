@@ -10,10 +10,11 @@ import { CartButton } from './cart-button';
 
 export default function Header() {
   return (
+    <div className='header-container'>
     <Box sx={{ flexGrow: 1 }}>
       <AppBar 
-      position="static"
-      color="transparent"
+      position="fixed"
+      color="warning"
       >
         <Toolbar>
         <IconButton
@@ -32,5 +33,6 @@ export default function Header() {
         </Toolbar>
       </AppBar>
     </Box>
+    </div>
   );
 }

@@ -14,7 +14,6 @@ function App() {
     <>
     <CartContext.Provider value={cartState}>
       <Header/>
-      <CartButton/> 
       <ProductList
       products={products}
       />

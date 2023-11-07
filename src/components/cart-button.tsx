@@ -66,8 +66,8 @@ export function CartButton() {
   };
 
   return (
-    <div className="cart-controls-container">
-      <div className="cart-controls">
+        <>
+        
         <IconButton
           color="primary"
           aria-label="add to shopping cart"
@@ -167,7 +167,6 @@ export function CartButton() {
             }
           </DialogContent>
         </Dialog>
-      </div>
-    </div>
+        </>
   );
 }
