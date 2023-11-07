@@ -1,57 +1,111 @@
 import { useReducer } from "react";
-import { Product } from "../model/product";
+import { CartItem, Product } from "../model/product";
 
-function cartReducer(state, action){
+enum CartActionType{
+    addToCart,
+    removeFromCart,
+    increaseQuantity,
+    decreaseQuantity,
+}
 
+type State = CartItem[]
+
+type CartAction = 
+{type: CartActionType.addToCart; product: Product}
+| {type: CartActionType.removeFromCart; productId: number}
+| {type: CartActionType.increaseQuantity, cartItem: CartItem}
+| {type: CartActionType.decreaseQuantity, productQuantity: number}
+
+function cartReducer(cart: State, action: CartAction):State{
     switch(action.type){
-        case 'add_to_cart': {
-            state.cart.push(action.product);
-            return state;
-        };
-        case 'remove_from_cart': {
-            state.cart.filter((product: Product) => product.id !== action.id);
-            return state;
-        };
-        case 'increase_item_quantity':{
-            return{
+        case CartActionType.addToCart: {
+            const newCartItem = {qty: 1, product: action.product}
+            const foundItem = cart.find((cartItem) => cartItem.product.id === action.product.id);
+            if (foundItem){
+                return cart.map((cartItem)=> {
+                   if (cartItem.product.id === action.product.id) {
 
+                        return {product: action.product, qty: cartItem.qty+1}
+                   }
+                    return cartItem
+                })
             }
+            return [...cart, newCartItem]
         };
-        case 'decrease_item_quantity':{
-            return{
-
+        case CartActionType.removeFromCart: {
+            const filteredCart = cart.filter((cartItem: CartItem) => cartItem.product.id !== action.productId);
+            console.log(action.productId);
+            return filteredCart;
+        };
+        case CartActionType.increaseQuantity:{  
+            const foundItem = cart.find((cartItem) => cartItem.product.id === action.cartItem.product.id);
+            if (foundItem){
+                return cart.map((cartItem)=> {
+                   if (cartItem.product.id === action.cartItem.product.id) {
+                    return {product: action.cartItem.product, qty: cartItem.qty+1}
+                   }
+                    return cartItem
+                })
             }
-        }
+            return cart
+            
+        };
+        case CartActionType.decreaseQuantity:{
+            const newQuantity = action.productQuantity+1
+            return newQuantity
+        };
+
+        default: return cart
     }
 }
 
-export function useCart() {
+const initialState: State = []
+
+export type CartState = {
+    actions: {
+        addToCart: (product: Product) => void;
+        removeFromCart: (productId: number) => void;
+        increaseQuantity: () => void;
+        decreaseQuantity: () => void;
+        calculateTotalItems: () => void;
+    };
+    cart: State;
+}
+
+export function useCart(): CartState {
     
-    const [state, dispatch] = useReducer(
+    const [cart, dispatch] = useReducer(
         cartReducer, 
-        {cart: []}
+        initialState
     );
 
     const addToCart = (product:Product) => {
         dispatch({
-        type: 'add_to_cart',
+        type: CartActionType.addToCart,
         product: product,
         })
+        
     }
 
     const removeFromCart = (productId:number) => {
         dispatch({
-            type: 'remove_from_cart',
-            productId
+            type: CartActionType.removeFromCart,
+            productId,
         });
     }
 
-    const increaseQuantity = () => {
-        dispatch({type: 'increase_item_quantity'})
+    const increaseQuantity = (cartItem:CartItem) => {
+        dispatch({
+            type: CartActionType.increaseQuantity,
+            cartItem: cartItem
+        })
     }
 
-    const decreaseQuantity = () => {
-        dispatch({type: 'decrease_item_quantity'})
+    const decreaseQuantity = (productQuantity:number) => {
+        dispatch({
+            type: CartActionType.decreaseQuantity,
+            productQuantity
+        })
     }
 
     return {
@@ -61,6 +115,6 @@ export function useCart() {
             increaseQuantity,
             decreaseQuantity,
         },
-        state
+        cart
     }
 }

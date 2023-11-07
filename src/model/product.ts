@@ -9,6 +9,12 @@ export interface Product{
     brand: string,
     category: string,
     thumbnail: string,
-    images: string[]
+    images: string[],
 
 }
+
+export interface CartItem{
+    product: Product;
+    qty: number;
+  }
+  

@@ -9,12 +9,14 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useCartContext } from '../contexts/cartContext';
 import { useCart } from '../hooks/useCart';
+import { CartItem } from '../model/product';
 
   export function CartButton() {
-      const cartActions = useCart()
+      const cartState = useCart()
       const cartContext = useCartContext()
       const [open, setOpen] = React.useState(false);
 
+      
       const handleClickOpen = () => {
           setOpen(true);
         };
@@ -31,10 +33,24 @@ import { useCart } from '../hooks/useCart';
             }
         }, [open]);
 
+        const calculateTotalItems = (cart:CartItem[]) => {
+            const qtyArray = []
+            for (let i = 0; i < cart.length; i++) {
+                const cartItem = cart[i];
+                qtyArray.push(cartItem.qty);
+            }
+            const init = 0;
+            const fullCart = qtyArray.reduce(
+                (acc, curr) => acc + curr,
+                init
+              );
+            return fullCart
+        }
+
       return (
         <div className='cart-controls-container'>
             <div className='cart-controls'>
-            Open your cart ({cartContext.cartItems.length} products in cart)
+            Open your cart ({calculateTotalItems(cartContext.cart)} total products in cart)
             <IconButton 
                 color="primary" 
                 aria-label="add to shopping cart"
@@ -60,19 +76,33 @@ import { useCart } from '../hooks/useCart';
           </DialogContentText>
           {
             <div className='cart'>
-                {cartContext.cartItems.map(product=>(
-                    <div className='cart-content' key={product.id}>
+                {cartContext.cart.map(cartItem=>(
+                    <div className='cart-content' key={cartItem.product.id}>
                         <div className='cart-quantity'>
-                            <h3>{product.title}</h3>
+                            <h3>{cartItem.product.title}</h3>
                             <div className='remove-btn-container'>
                                 <button
-                                onClick={() => cartActions.actions.removeFromCart(product.id)}
-                                >Remove item</button>
+                                onClick={() => cartContext.actions.removeFromCart(cartItem.product.id)}
+                                >Remove item entirely</button>
+                            </div>
+                            <div className='quantity-container'>
+                                <button
+                                onClick={()=> {
+                                    cartContext.actions.decreaseQuantity
+                                }}
+                                >-</button>
+                                <div>{cartItem.qty}</div>
+                                <button
+                                onClick={()=> {
+                                    cartContext.actions.increaseQuantity
+                                }}
+                                >+</button>
+                                
                             </div>
                         </div>
-                        <img src={product.thumbnail} alt={product.title} />
+                        <img src={cartItem.product.thumbnail} alt={cartItem.product.title} />
                         <br />
-                        <span>Price: {product.price}</span>
+                        <span>Price: {cartItem.product.price}</span>
                     </div>
                 ))}
             </div>
