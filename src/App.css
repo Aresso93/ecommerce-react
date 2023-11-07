@@ -110,13 +110,28 @@ ul {
 .remove-btn-container{
   display: flex;
   flex-direction: column;
-  width: 40%;
-  align-self: center;
+  width: 12%;
 }
 
 .quantity-container{
   display: flex;
+  flex-direction: row;
   align-self: center;
+  align-content: center;
   padding: 4px;
   gap: 4px;
+}
+
+.how-many{
+  display: flex;
+  align-self: center;
+}
+
+.close-btn-container{
+  display: flex;
+  justify-content: end;
+}
+
+h2{
+  padding: 0px;
 }
