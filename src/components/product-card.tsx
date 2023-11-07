@@ -1,5 +1,7 @@
+import { IconButton } from "@mui/material";
 import { useCartContext } from "../contexts/cartContext";
 import { Product } from "../model/product"
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 export interface ProductCardProps{
     product: Product,
@@ -19,14 +21,19 @@ export function ProductCard(props:ProductCardProps){
             <span>Only {props.product.stock} left!</span>
             <img src={props.product.thumbnail} alt={props.product.title} />
             <div className="button-container">
-                <button 
-                className="card-button"
-                onClick={()=>{
-                    cartContext.actions.addToCart(props.product)
-                }}
+                add to cart
+                <IconButton
+                color="primary"
+                aria-label="delete"
+                onClick={() =>
+                cartContext.actions.addToCart(props.product)
+                }
                 >
-                    + add to cart
-                </button>
+                <AddShoppingCartIcon 
+                color="primary"
+                fontSize="medium"
+                />
+                </IconButton>
             </div>
         </div>
       )

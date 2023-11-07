@@ -3,7 +3,6 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { CartButton } from './cart-button';
@@ -13,8 +12,8 @@ export default function Header() {
     <div className='header-container'>
     <Box sx={{ flexGrow: 1 }}>
       <AppBar 
-      position="fixed"
-      color="warning"
+      position="absolute"
+      color="info"
       >
         <Toolbar>
         <IconButton
@@ -23,6 +22,7 @@ export default function Header() {
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
+            onClick={()=> alert('Non cliccarmi, non faccio niente')}
           >
              <MenuIcon />
           </IconButton>

@@ -108,8 +108,10 @@ ul {
 
 .remove-btn-container{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   width: 12%;
+  justify-items: center;
+  align-items: center;
 }
 
 .quantity-container{
@@ -137,13 +139,19 @@ h2{
 
 .header-container{
   width: 100%;
-  padding-bottom: 100px;
+  padding-bottom: 80px;
 }
 
-html,body{
-  box-sizing: border-box;
+
+
+.container-container{
+  border: 1px solid black;
+  padding: 4px;
+  max-width: 20%;
+  border-radius: 25px;
 }
 
-.cart-content{
-  background-color: antiquewhite;
+.checkout-btn{
+  display: flex;
+  justify-content: center;
 }

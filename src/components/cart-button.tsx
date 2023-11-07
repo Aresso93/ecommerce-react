@@ -108,7 +108,10 @@ export function CartButton() {
                   <div className="cart-content" key={cartItem.product.id}>
                     <div className="cart-quantity">
                       <h3>{cartItem.product.title}</h3>
+                      <div className="container-container">
+
                       <div className="remove-btn-container">
+                        Remove
                         <IconButton
                           color="primary"
                           aria-label="delete"
@@ -121,7 +124,8 @@ export function CartButton() {
                           <DeleteIcon />
                         </IconButton>
                       </div>
-                      <div className="how-many">How many?</div>
+                      </div>
+                      <div className="how-many">Quantity</div>
                       <div className="quantity-container">
 
                       <IconButton
@@ -161,8 +165,17 @@ export function CartButton() {
                       Price (each): {cartItem.product.price} (you save{" "}
                       {cartItem.product.discountPercentage}%)
                     </span>
+                    <hr />
                   </div>
                 ))}
+                <div className="checkout-btn">
+                <button
+                onClick={() => console.log('check THIS out!')}
+                >
+                Checkout
+                </button>
+
+                </div>
               </div>
             }
           </DialogContent>
