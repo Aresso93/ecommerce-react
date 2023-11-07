@@ -26,7 +26,6 @@ const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
 export function CartButton() {
   const cartContext = useCartContext();
   const [open, setOpen] = React.useState(false);
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -43,33 +42,11 @@ export function CartButton() {
     }
   }, [open]);
 
-//   const calculateTotalItems2 = (cart: CartItem[]) => {
-//     const qtyArray = [];
-//     for (let i = 0; i < cart.length; i++) {
-//       const cartItem = cart[i];
-//       qtyArray.push(cartItem.qty);
-//     }
-//     const init = 0;
-//     const fullCart = qtyArray.reduce((acc, curr) => acc + curr, init);
-//     return fullCart;
-//   };
-
   const calculateTotalItems = (cart: CartItem[]) => {
     const init = 0;
     const reducedCart = cart.reduce((acc, curr) => acc + curr.qty, init);
     return reducedCart;
   };
-
-//   const calculateTotalPrice2 = (cart: CartItem[]) => {
-//     const priceArray = [];
-//     for (let i = 0; i < cart.length; i++) {
-//       const cartItem = cart[i];
-//       priceArray.push(cartItem.product.price * cartItem.qty);
-//     }
-//     const init = 0;
-//     const fullPrice = priceArray.reduce((acc, curr) => acc + curr, init);
-//     return fullPrice;
-//   };
 
   const calculateTotalPrice = (cart: CartItem[]) => {
     const init = 0;
@@ -79,7 +56,6 @@ export function CartButton() {
 
   return (
         <>
-        
         <IconButton
           color="primary"
           aria-label="add to shopping cart"
@@ -151,9 +127,7 @@ export function CartButton() {
                         >
                           <RemoveIcon />
                         </IconButton>
-
                         <div>{cartItem.qty}</div>
-                        
                         <IconButton
                           color="primary"
                           aria-label="add one"
@@ -165,7 +139,6 @@ export function CartButton() {
                         >
                           <AddIcon />
                         </IconButton>
-
                       </div>
                     </div>
                     <img
@@ -181,11 +154,15 @@ export function CartButton() {
                   </div>
                 ))}
                 <div className="checkout-btn">
+                {cartContext.cart.length !== 0 ?
                 <button
-                onClick={() => console.log('check THIS out!')}
+                onClick={() => console.log('check THIS out!', cartContext.cart)}
                 >
                 Checkout
                 </button>
+                :
+                <span>Your cart is currently empty</span>
+                    }
 
                 </div>
               </div>
