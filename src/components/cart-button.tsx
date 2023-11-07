@@ -43,25 +43,37 @@ export function CartButton() {
     }
   }, [open]);
 
+//   const calculateTotalItems2 = (cart: CartItem[]) => {
+//     const qtyArray = [];
+//     for (let i = 0; i < cart.length; i++) {
+//       const cartItem = cart[i];
+//       qtyArray.push(cartItem.qty);
+//     }
+//     const init = 0;
+//     const fullCart = qtyArray.reduce((acc, curr) => acc + curr, init);
+//     return fullCart;
+//   };
+
   const calculateTotalItems = (cart: CartItem[]) => {
-    const qtyArray = [];
-    for (let i = 0; i < cart.length; i++) {
-      const cartItem = cart[i];
-      qtyArray.push(cartItem.qty);
-    }
     const init = 0;
-    const fullCart = qtyArray.reduce((acc, curr) => acc + curr, init);
-    return fullCart;
+    const reducedCart = cart.reduce((acc, curr) => acc + curr.qty, init);
+    return reducedCart;
   };
 
+//   const calculateTotalPrice2 = (cart: CartItem[]) => {
+//     const priceArray = [];
+//     for (let i = 0; i < cart.length; i++) {
+//       const cartItem = cart[i];
+//       priceArray.push(cartItem.product.price * cartItem.qty);
+//     }
+//     const init = 0;
+//     const fullPrice = priceArray.reduce((acc, curr) => acc + curr, init);
+//     return fullPrice;
+//   };
+
   const calculateTotalPrice = (cart: CartItem[]) => {
-    const priceArray = [];
-    for (let i = 0; i < cart.length; i++) {
-      const cartItem = cart[i];
-      priceArray.push(cartItem.product.price * cartItem.qty);
-    }
     const init = 0;
-    const fullPrice = priceArray.reduce((acc, curr) => acc + curr, init);
+    const fullPrice = cart.reduce((acc, curr) => acc + curr.qty * curr.product.price, init);
     return fullPrice;
   };
 
