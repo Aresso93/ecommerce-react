@@ -55,7 +55,7 @@ function cartReducer(cart: State, action: CartAction):State{
             const foundItem = cart.find((cartItem) => cartItem.product.id === action.product.id);
             
             if(foundItem?.qty === 1){
-                removeFromCart(action.product.id)
+                return cart.filter((cartItem: CartItem) => cartItem.product.id !== action.product.id);
             }
             
             if (foundItem){

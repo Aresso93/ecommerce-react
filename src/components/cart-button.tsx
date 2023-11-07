@@ -1,6 +1,6 @@
 import * as React from 'react';
 import IconButton from '@mui/material/IconButton';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -8,8 +8,17 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useCartContext } from '../contexts/cartContext';
-import { useCart } from '../hooks/useCart';
 import { CartItem } from '../model/product';
+import { styled, Badge, BadgeProps } from '@mui/material';
+
+const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
+    '& .MuiBadge-badge': {
+      right: -20,
+      top: -10,
+      border: `1px solid ${theme.palette.background.paper}`,
+      padding: '0 4px',
+    },
+  }));
 
   export function CartButton() {
       const cartContext = useCartContext()
@@ -45,16 +54,31 @@ import { CartItem } from '../model/product';
             return fullCart
         }
 
+        const calculateTotalPrice = (cart:CartItem[]) => {
+            const priceArray = []
+            for (let i = 0; i < cart.length; i++) {
+                const cartItem = cart[i];
+                priceArray.push(cartItem.product.price);
+            }
+            const init = 0;
+            const fullPrice = priceArray.reduce(
+                (acc, curr) => acc + curr,
+                init
+              );
+            return fullPrice
+        }
+
       return (
         <div className='cart-controls-container'>
             <div className='cart-controls'>
-            Open your cart ({calculateTotalItems(cartContext.cart)} total products in cart)
+            Open your cart
             <IconButton 
                 color="primary" 
                 aria-label="add to shopping cart"
                 onClick={handleClickOpen}
                 >
-                <AddShoppingCartIcon />
+                    <StyledBadge badgeContent={calculateTotalItems(cartContext.cart)} color="primary"></StyledBadge>
+                <ShoppingCartIcon />
             </IconButton>
             <Dialog
             open={open}
@@ -65,11 +89,12 @@ import { CartItem } from '../model/product';
             >
                 <DialogTitle id="scroll-dialog-title">Your cart</DialogTitle>
                 <DialogContent>
-                <DialogContentText
+            <DialogContentText
                 id="scroll-dialog-description"
                 ref={descriptionElementRef}
                 tabIndex={-1}
                 >
+                <span>Grand total: {calculateTotalPrice(cartContext.cart)}</span><br/>
             These are the products you currently have in your cart:
           </DialogContentText>
           {
@@ -81,7 +106,8 @@ import { CartItem } from '../model/product';
                             <div className='remove-btn-container'>
                                 <button
                                 onClick={() => cartContext.actions.removeFromCart(cartItem.product.id)}
-                                >Remove item entirely</button>
+                                >Remove item entirely
+                                </button>
                             </div>
                             <div className='quantity-container'>
                                 <button
@@ -91,7 +117,6 @@ import { CartItem } from '../model/product';
                                 <button
                                 onClick={() => cartContext.actions.increaseQuantity(cartItem.product)}
                                 >+</button>
-                                
                             </div>
                         </div>
                         <img src={cartItem.product.thumbnail} alt={cartItem.product.title} />
