@@ -142,7 +142,9 @@ h2{
   padding-bottom: 80px;
 }
 
-
+html,body{
+  box-sizing: border-box;
+}
 
 .container-container{
   border: 1px solid black;

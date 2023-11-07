@@ -22,7 +22,6 @@ export default function Header() {
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
-            onClick={()=> alert('Non cliccarmi, non faccio niente')}
           >
              <MenuIcon />
           </IconButton>
