@@ -58,7 +58,7 @@ const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
             const priceArray = []
             for (let i = 0; i < cart.length; i++) {
                 const cartItem = cart[i];
-                priceArray.push(cartItem.product.price);
+                priceArray.push(cartItem.product.price * cartItem.qty);
             }
             const init = 0;
             const fullPrice = priceArray.reduce(
