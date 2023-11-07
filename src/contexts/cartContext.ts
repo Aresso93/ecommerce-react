@@ -1,5 +1,4 @@
 import { createContext, useContext } from "react";
-import { Product } from "../model/product";
 import { CartState } from "../hooks/useCart";
 
 const initialState = {

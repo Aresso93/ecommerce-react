@@ -9,12 +9,11 @@ enum CartActionType{
 }
 
 type State = CartItem[]
-
 type CartAction = 
 {type: CartActionType.addToCart; product: Product}
 | {type: CartActionType.removeFromCart; productId: number}
-| {type: CartActionType.increaseQuantity, cartItem: CartItem}
-| {type: CartActionType.decreaseQuantity, productQuantity: number}
+| {type: CartActionType.increaseQuantity, product: Product}
+| {type: CartActionType.decreaseQuantity, product: Product}
 
 function cartReducer(cart: State, action: CartAction):State{
     switch(action.type){
@@ -24,56 +23,66 @@ function cartReducer(cart: State, action: CartAction):State{
             if (foundItem){
                 return cart.map((cartItem)=> {
                    if (cartItem.product.id === action.product.id) {
-
-                        return {product: action.product, qty: cartItem.qty+1}
+                    return {product: action.product, qty: cartItem.qty+1}
                    }
                     return cartItem
                 })
             }
             return [...cart, newCartItem]
         };
+
         case CartActionType.removeFromCart: {
             const filteredCart = cart.filter((cartItem: CartItem) => cartItem.product.id !== action.productId);
             console.log(action.productId);
             return filteredCart;
         };
+
         case CartActionType.increaseQuantity:{  
-            const foundItem = cart.find((cartItem) => cartItem.product.id === action.cartItem.product.id);
+            const foundItem = cart.find((cartItem) => cartItem.product.id === action.product.id); 
             if (foundItem){
                 return cart.map((cartItem)=> {
-                   if (cartItem.product.id === action.cartItem.product.id) {
-                    return {product: action.cartItem.product, qty: cartItem.qty+1}
-                   }
-                    return cartItem
-                })
+                    if (cartItem.product.id === action.product.id) {
+                     return {product: action.product, qty: cartItem.qty+1}
+                    }
+                     return cartItem
+                 })
             }
+            console.log(cart)
             return cart
-            
-        };
-        case CartActionType.decreaseQuantity:{
-            const newQuantity = action.productQuantity+1
-            return newQuantity
         };
 
+        case CartActionType.decreaseQuantity:{
+            const foundItem = cart.find((cartItem) => cartItem.product.id === action.product.id);
+            
+            if(foundItem?.qty === 1){
+                removeFromCart(action.product.id)
+            }
+            
+            if (foundItem){
+                return cart.map((cartItem)=> {
+                    if (cartItem.product.id === action.product.id) {
+                     return {product: action.product, qty: cartItem.qty-1}
+                    }
+                     return cartItem
+                 })
+            }
+            return cart
+        };
         default: return cart
     }
 }
-
 const initialState: State = []
-
 export type CartState = {
     actions: {
         addToCart: (product: Product) => void;
         removeFromCart: (productId: number) => void;
-        increaseQuantity: () => void;
-        decreaseQuantity: () => void;
-        calculateTotalItems: () => void;
+        increaseQuantity: (product: Product) => void;
+        decreaseQuantity: (product: Product) => void;
     };
     cart: State;
 }
 
 export function useCart(): CartState {
-    
     const [cart, dispatch] = useReducer(
         cartReducer, 
         initialState
@@ -84,7 +93,6 @@ export function useCart(): CartState {
         type: CartActionType.addToCart,
         product: product,
         })
-        
     }
 
     const removeFromCart = (productId:number) => {
@@ -94,20 +102,18 @@ export function useCart(): CartState {
         });
     }
 
-    const increaseQuantity = (cartItem:CartItem) => {
+    const increaseQuantity = (product: Product) => {
         dispatch({
             type: CartActionType.increaseQuantity,
-            cartItem: cartItem
+            product: product
         })
     }
-
-    const decreaseQuantity = (productQuantity:number) => {
+    const decreaseQuantity = (product: Product) => {
         dispatch({
             type: CartActionType.decreaseQuantity,
-            productQuantity
+            product: product
         })
     }
-
     return {
         actions:{
             addToCart,

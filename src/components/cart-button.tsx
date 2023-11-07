@@ -12,10 +12,8 @@ import { useCart } from '../hooks/useCart';
 import { CartItem } from '../model/product';
 
   export function CartButton() {
-      const cartState = useCart()
       const cartContext = useCartContext()
       const [open, setOpen] = React.useState(false);
-
       
       const handleClickOpen = () => {
           setOpen(true);
@@ -87,15 +85,11 @@ import { CartItem } from '../model/product';
                             </div>
                             <div className='quantity-container'>
                                 <button
-                                onClick={()=> {
-                                    cartContext.actions.decreaseQuantity
-                                }}
+                                onClick={() => cartContext.actions.decreaseQuantity(cartItem.product)}
                                 >-</button>
                                 <div>{cartItem.qty}</div>
                                 <button
-                                onClick={()=> {
-                                    cartContext.actions.increaseQuantity
-                                }}
+                                onClick={() => cartContext.actions.increaseQuantity(cartItem.product)}
                                 >+</button>
                                 
                             </div>
