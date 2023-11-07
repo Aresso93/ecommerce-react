@@ -4,6 +4,7 @@ import { ProductList } from './components/product-list';
 import { CartButton } from './components/cart-button';
 import { CartContext } from './contexts/cartContext';
 import { useCart } from './hooks/useCart';
+import Header from './components/header';
 
 function App() {
   
@@ -12,9 +13,8 @@ function App() {
   return (
     <>
     <CartContext.Provider value={cartState}>
-
-      <CartButton
-      /> 
+      <Header/>
+      <CartButton/> 
       <ProductList
       products={products}
       />

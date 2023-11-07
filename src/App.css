@@ -1,8 +1,10 @@
 #root {
-  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
+}
+
+html,body{
+  box-sizing: border-box;
 }
 
 .logo {
@@ -14,6 +16,7 @@
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
@@ -89,8 +92,6 @@ ul {
 .cart-controls{
   display: flex;
   flex-direction: column;
-  color: #1976d2;
-  border: 2px solid #1976d2;
   border-radius: 25px;
   width: 25%;
 }
@@ -98,6 +99,8 @@ ul {
 .cart-controls-container{
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  width: 25%;
 }
 
 .cart-quantity{

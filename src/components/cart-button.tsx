@@ -2,8 +2,8 @@ import * as React from "react";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import RemoveIcon from "@mui/icons-material/Remove";
-import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from '@mui/icons-material/Remove';
+import AddIcon from '@mui/icons-material/Add';
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
@@ -12,6 +12,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { useCartContext } from "../contexts/cartContext";
 import { CartItem } from "../model/product";
 import { styled, Badge, BadgeProps } from "@mui/material";
+
 
 const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -67,7 +68,6 @@ export function CartButton() {
   return (
     <div className="cart-controls-container">
       <div className="cart-controls">
-        Open your cart
         <IconButton
           color="primary"
           aria-label="add to shopping cart"
@@ -75,9 +75,9 @@ export function CartButton() {
         >
           <StyledBadge
             badgeContent={calculateTotalItems(cartContext.cart)}
-            color="primary"
+            color="success"
           ></StyledBadge>
-          <ShoppingCartIcon />
+          <ShoppingCartIcon color="action"/>
         </IconButton>
         <Dialog
           open={open}
@@ -123,7 +123,8 @@ export function CartButton() {
                       </div>
                       <div className="how-many">How many?</div>
                       <div className="quantity-container">
-                        <IconButton
+
+                      <IconButton
                           color="primary"
                           aria-label="remove one"
                           onClick={() =>
@@ -136,7 +137,7 @@ export function CartButton() {
                         </IconButton>
 
                         <div>{cartItem.qty}</div>
-
+                        
                         <IconButton
                           color="primary"
                           aria-label="add one"
@@ -148,6 +149,7 @@ export function CartButton() {
                         >
                           <AddIcon />
                         </IconButton>
+
                       </div>
                     </div>
                     <img
