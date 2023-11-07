@@ -39,10 +39,10 @@ import { CartItem } from '../model/product';
                 const cartItem = cart[i];
                 qtyArray.push(cartItem.qty);
             }
-            const initialValue = 0;
+            const init = 0;
             const fullCart = qtyArray.reduce(
-                (accumulator, currentValue) => accumulator + currentValue,
-                initialValue
+                (acc, curr) => acc + curr,
+                init
               );
             return fullCart
         }
@@ -83,7 +83,7 @@ import { CartItem } from '../model/product';
                             <div className='remove-btn-container'>
                                 <button
                                 onClick={() => cartContext.actions.removeFromCart(cartItem.product.id)}
-                                >Remove item</button>
+                                >Remove item entirely</button>
                             </div>
                             <div className='quantity-container'>
                                 <button
